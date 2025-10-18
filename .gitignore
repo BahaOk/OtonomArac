@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.env
+.env.*
+
+# Venv
+venv/
+.venv/
+
+# Build / cache
+build/
+dist/
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# Büyük veri / modeller / videolar
+models/
+checkpoints/
+data/
+datasets/
+*.pt
+*.pth
+*.onnx
+*.tflite
+*.mp4
+*.avi
+*.mkv
+*.zip
+
+# OS
+.DS_Store
+Thumbs.db

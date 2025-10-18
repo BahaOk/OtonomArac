@@ -1,0 +1,22 @@
+<!doctype html><meta charset="utf-8"><title>Pi Camera WSS</title>
+<style>body{background:#111;color:#eee;font-family:system-ui}#v{max-width:100%;width:960px;display:block;margin:16px auto;background:#000}.row{display:flex;gap:8px;justify-content:center;margin:8px}button{padding:8px 12px}</style>
+<img id="v" alt="video"/>
+<div class="row">
+  <button onclick="sendVel('slow')">Slow</button>
+  <button onclick="sendVel('normal')">Normal</button>
+  <button onclick="sendVel('fast')">Fast</button>
+  <button onclick="sendVel('stop')">Stop</button>
+</div>
+<pre id="log" style="max-width:960px;margin:8px auto;white-space:pre-wrap;"></pre>
+<script>
+const TOKEN = "SECRET";
+const host = location.hostname;
+const proto = (location.protocol === 'https:') ? 'wss' : 'ws';
+const vws = new WebSocket(`${proto}://${host}:8765/?t=$SECRET`); vws.binaryType="arraybuffer";
+const img = document.getElementById('v');
+vws.onmessage = ev => { const b=new Blob([ev.data],{type:'image/jpeg'}); const u=URL.createObjectURL(b); img.onload=()=>URL.revokeObjectURL(u); img.src=u; };
+const cws = new WebSocket(`${proto}://${host}:8766/?t=$SECRET`);
+const log = document.getElementById('log');
+cws.onmessage = ev => { try{ const d=JSON.parse(ev.data); if(d.telemetry) log.textContent=JSON.stringify(d.telemetry,null,2);}catch(e){} };
+function sendVel(v){ cws.send(JSON.stringify({velocity:v})); }
+</script>
