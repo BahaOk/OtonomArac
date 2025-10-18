@@ -40,7 +40,7 @@ class ServoKontrol:
 
     def sola_don(self):
         """Direksiyonu sola çevirir ve sonra merkeze alır."""
-        sol_gorev_dongusu = 3.8 # Sol için Duty Cycle (%10)
+        sol_gorev_dongusu = 3.0# Sol için Duty Cycle (%10)
         print("Sola dön komutu (Direksiyon sola çevriliyor)")
         
         self.pwm_sag.ChangeDutyCycle(sol_gorev_dongusu)
